@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.getJSON.async = false;
+        $.getJSON('Hacker.ashx', function (data) {
+            if (data.error == 1) {
+                alert(data.msg);
+                window.location.href = "Login.html";
+            }
+        });
+        $.getJSON.async = true;
+        document.onkeydown = function (e) {
+            e = window.event || e;
+            var k = e.keyCode;
+            //屏蔽ctrl+R，F5键，ctrl+F5键  F3键！验证
+            if ((e.ctrlKey == true && k == 82) || (k == 116)
+                || (e.ctrlKey == true && k == 116) || k == 114) {
+                e.keyCode = 0;
+                alert("当前页面禁止刷新！");
+                e.returnValue = false;
+                e.cancelBubble = true;
+                return false;
+
+            }
+            if (k == 8) {
+                alert("禁止返回或后退！");
+                e.keyCode = 0;
+                e.returnValue = false;
+                return false;
+            }
+            //屏蔽 Ctrl+n   验证可以实现效果
+            if (e.ctrlKey && k == 78) {
+                e.keyCode = 0;
+                e.returnValue = false;
+                e.cancelBubble = true;
+                return false;
+            }
+            //屏蔽F11   验证可以实现效果
+            if (k == 122) {
+                e.keyCode = 0;
+                e.returnValue = false;
+                e.cancelBubble = true;
+                return false;
+            }
+            //屏蔽 shift+F10  验证可以实现效果      
+            if ((e.shiftKey && k == 121) || (e.ctrlKey && k == 121)) {
+                e.keyCode = 0;
+                e.returnValue = false;
+                e.cancelBubble = true;
+                return false;
+            }
+
+            //屏蔽Alt+F4  
+            if ((e.altKey) && (k == 115)) {
+                window.showModelessDialog("about:blank", "",
+                    "dialogWidth:1px;dialogheight:1px");
+                e.keyCode = 0;
+                e.returnValue = false;
+                e.cancelBubble = true;
+                return false;
+            }
+            //屏蔽 Alt+ 方向键 ← ;屏蔽 Alt+ 方向键 → ！验证
+            if ((e.altKey)
+                && ((k == 37) || (k == 39))) {
+                alert("不准你使用ALT+方向键前进或后退网页！");
+                e.keyCode = 0;
+                e.returnValue = false;
+                e.cancelBubble = true;
+                return false;
+            }
+
+        };
+
+        //屏蔽右键菜单，！验证
+        document.oncontextmenu = function (event) {
+            if (window.event) {
+                event = window.event;
+            }
+            try {
+                var the = event.srcElement;
+                if (!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")) {
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                return false;
+            }
+        };
+
+
+        document.οncοntextmenu = function () { return false };//禁止右键刷新
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <title>HackTheGame</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .code {
+            background-color: rgba(27,27,27,0.3);
+            color: #00D0FF;
+            padding: 0 20px;
+            margin-top: 10%;
+            display: none;
+        }
+
+        .msg {
+            background-color: rgba(27,27,27,0.3);
+            color: #e600ff;
+            padding: 0 25px;
+            margin-top: 5%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 3%;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        #download {
+            color: #47FF06;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background:#111; position: relative;">
+        <canvas id="mom" style="z-index:-1; float:left;"></canvas>
+        <div class="msg">
+            欢迎来到hacker世界！<br />
+            我是半根蓝白，您能够进入到这里，我感到非常荣幸。<br />
+            因为我的团队将又添一位天才人物。接下来让我来介绍一下吧<br />
+            HackTheGame是一款黑客模拟游戏。<br />
+            在游戏中你是以为挑战各种任务的高级黑客。<br />
+            我们通过您的注册邮箱联系------发送任务<br />
+            你接受任务 ，通过超高的计算机能力入侵远程计算机。<br />
+            并且窃取机密文件，切记，要删除你的登陆日志。<br />
+            好的现在开始，接受你的第0个任务，那下载安装黑客工具箱  <br />
+            练习好技术，你如果感觉良好，可以试着挑战第一个任务。<br />
+            不用担心我会时刻关注你，有任务会联系你，请确保邮箱可用。<br /><br /><br /><br />
+            你如果有需要 ，可以通过  ------ bglb@qq.com 这个邮箱联系我<br />
+        </div>
+        <div style="position: absolute; top:0;right:8%">
+            <div class="code">
+                <pre>
+   o@@
+ X#@@.       .o                            oXX               X%       .ooo.
+  ##@        .#                         X##X      .%@@     ###o       o#%
+  ##@         #                        ###o         @@     %##o       X.
+  ##@         #                        ##%           %     %##o      o
+  ##@         #            .%.         ##                  %##o    .
+  ##@         #          %####         #@                  %##o   o
+  @#@         #         . .###X         @o                 %##X X#
+  %##o..... .%#        .   @###         ##                 %###@##%
+  %#@.       %#        .    ###%        ##                 %##X X##%
+  %#X         #       o     %###        ##                 %##o  X##%
+  %#X         #       @     %###        ##                 %##o   %##%
+  %#X         #      Xooooooo@##        ##o                %##o    %##%
+  %#X         #               ##@       ###                %##o     @##X
+  %#X         #     X         %##o      ###o               %##o      ###X
+  %#X         #    %X          ###       X##o        X     %##@      ####X
+  %@.        o%   o@%         .@@@%         XX             @#.          o@X
+
+                                .o
+                                X#%..
+                                 ###.        #       %%     o@#o
+             ......o@#o   X#.    @##         #    X###        %o
+            o#X   .###     %o    @##         #     ###         o
+            oo     ###      .    @##         #     ###
+                   ###           @##         #     ###
+                   ###           X##         #     ###    o
+                   ###           .##.        #     ###o   #
+                   ###           .##@%%%%%%%@#     ###@X@##
+                   ###           .##         #     ###.  X#
+                   ###           .##         #     ###    %
+                   ###           .##         #     ###
+                   ###           .##         #     ###          .
+                   ###           .##         #     ###          %
+                   ###           .##         #     ###.        @X
+                   #%Xo          %##         #     ###@      %##.
+                  ..                              .#@
+
+      .                                 .#o                       .     ....
+  %#@         .                          @#Xo                    X%      .@#
+|o##%        %##                          %####          o#X    @##%        #
+|X##          o#                          %XX##X         X@X    %##%        o
+|X#%           %            o@o           %. ###        o XX    %##%
+|X#o                      X@###           %. .##%       o XX    %##%
+|X#                      o  ###%          %   ###      X  XX    %##%   ..
+|X#                     .   %###          %   .##@     .  XX    %##@  X#.
+|X#                     o    ###@         %    @##.   X   XX    %##@..@#.
+|X#                    o     X###.        %     ###   .   XX    %##%   %.
+|X#.    ####o ##       @.    %###.        %     %##o X    XX    %##%    .
+|X#X    #   #o##      Xo......%##o        %      ###%     XX    %##%          .
+|X##        #X##               ##@        %      X##%     XX    %##%         oX
+|X##o       #X##     %         o##%       %       ##      oX    %##%         #o
+ o##.      #X ##    %%          ###o      %       o%      XX    %##@       .#@
+    o.    .X  ##   .%%          %%%%      @               .     @#@%o    .X%%.
+                                        .#                     oX
+
+
+   
+</pre>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <footer><a href="download/Setup1.msi" id="download">下载安装HackTheGame</a></footer>
+    <script type="text/javascript" src="js/jQuery.typewriter.js"></script>
+
+    <script type="text/javascript">
+        function getDate() {
+            var date = new Date();
+
+            var year = date.getFullYear();
+            var date = new Date();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+
+            var loginTime = year + "/" + month + "/" + day + '/ ' + hour + ':' + minute + ':' + second;
+            console.log(loginTime);
+            return loginTime;
+        };
+        var loginDate = getDate();
+        window.onload = function () {
+
+            var time = 30;
+            setTimeout(function () {
+                $(".msg").css('display', 'block')
+                $(".msg").typewriter(80);
+            }, 2500);
+            $('#download').bind('click', function () {
+                time = 10;
+                $('.code').css('display', 'block');
+                $('.code').typewriter();
+                clearInterval(t1);
+                setInterval(draw, time);
+            });
+            //获取画布对象
+            var canvas = document.getElementById("mom");
+            //获取画布的上下文
+            //getContext() 方法返回一个用于在画布上绘图的环境。
+            var context = canvas.getContext("2d");
+            //获取浏览器屏幕的宽度和高度
+            var W = window.innerWidth;
+            var H = window.innerHeight;
+            //设置canvas的宽度和高度
+            canvas.width = W;
+            canvas.height = H;
+            //每个文字的字体大小
+            var fontSize = 16;
+            //计算列
+            var colunms = Math.floor(W / fontSize);
+            //记录每列文字的y轴坐标
+            var drops = [];
+            //给每一个文字初始化一个起始点的位置
+            //计算每一个文字所谓坐标 存储y轴的坐标
+            for (var i = 0; i < colunms; i++) {
+                drops[i] = 1;
+            }
+            //运动的文字
+            var str = "JavaScript function(){}";
+            //4:fillText(str,x,y);原理就是去更改y的坐标位置
+            //绘画的函数
+            function draw() {
+                context.fillStyle = "rgba(0,0,0,0.05)";
+                //fillRect() 方法绘制“已填色”的矩形。默认的填充颜色是黑色。
+                context.fillRect(0, 0, W, H);
+                //给字体设置样式
+                context.font = "700 " + fontSize + "px  微软雅黑";
+                //给字体添加颜色
+                context.fillStyle = "#00cc33";//可以rgb,hsl, 标准色，十六进制颜色
+                //写入画布中
+                for (var i = 0; i < colunms; i++) {
+                    var index = Math.floor(Math.random() * str.length);//设置文字出发时间随机 Math.floor(Math.random()*str.length)让数组里面的文字索引随机出现
+                    var x = i * fontSize;
+                    var y = drops[i] * fontSize;//也让y轴方向也向下掉一个文字的距离
+                    context.fillText(str[index], x, y);
+                    // //如果要改变时间，肯定就是改变每次他的起点
+                    if (y >= canvas.height && Math.random() > 0.99) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;//让数组里面的值每次加一，用于上面的y轴下掉
+                }
+            };
+
+            function randColor() {
+                var r = Math.floor(Math.random() * 256);
+                var g = Math.floor(Math.random() * 256);
+                var b = Math.floor(Math.random() * 256);
+                return "rgb(" + r + "," + g + "," + b + ")";
+            }
+            draw();
+
+            var t1 = setInterval(draw, time);
+
+            $(window).bind('unload', function (e) {
+                $.ajax({
+                    url: 'Loginout.ashx',
+                    type: 'post',
+                    data: 000,
+                    async: false, //必须加异步，不然无法检测浏览器的关闭情况
+                });
+            });
+        }
+       
+
+
+
+
+    </script>
+
+</body>
+
+</html>
